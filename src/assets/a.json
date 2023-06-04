@@ -1,0 +1,57 @@
+{
+ "task": {
+    "rules": [
+        {
+            "coin": {
+                "name": "BTCUSDT",
+                "timeframe": "1m"
+            },
+            "conditions": [
+                {
+                "type": "comparison",
+                "function": "SMA",
+                "params": ["7"],
+                "comparison": "<",
+                "compare_function": "SMA",
+                "compare_params": ["25"]
+                },
+                {
+                "type": "tracking",
+                "function": "MA",
+                "params": ["3"],
+                "comparison": "increase",
+                "compare_percent": 10,
+                "compare_timeframe": "15m"
+                }
+            ]
+        }
+    ],
+    "action": [
+        "BUY(BTCUSDT)"
+    ],
+    "operator": "TEST()"
+ },
+ "trade_platform_id": 2225,
+ "futures": {
+    "status": true,
+    "p1": 6,
+    "p2": 1000
+ },
+ "simple_stoploss": {
+    "status": false,
+    "start": -0.0001,
+    "end": 0.0005
+ },
+ "spot": {
+    "status": false,
+    "p1": 10000
+ },
+ "trailing_stoploss": {
+    "status": true,
+    "coefficient": 0.0003
+ },
+ "test_mode": {
+    "status": true,
+    "balance": 10000
+ }
+}

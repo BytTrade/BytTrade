@@ -1,0 +1,42 @@
+.navigatebar {
+    width: 200px;
+    background-color: rgb(26, 26, 239);
+    color: white;
+    
+    font-size: 1.5rem;
+}
+
+.sticky {
+    position: sticky;
+    top: 0px;
+    padding-top: 10px;
+}
+
+.navbar__header {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    font-weight: 500;
+}
+
+.navigatebar__container {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    margin: auto;
+    padding-top: 40px;
+    justify-content: space-between;
+    height: 80vh;
+    font-size: 1.25rem;
+}
+
+.navigaatebar__container-element {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.navlink {
+    text-decoration: none;
+    color: white;
+}
