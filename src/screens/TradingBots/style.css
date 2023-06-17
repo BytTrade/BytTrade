@@ -49,7 +49,12 @@ h3 {
     text-align: center;
     display: inline-flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: left;
+}
+
+.stoploss__element-text_left {
+    margin-right: 10px;
+    margin-left: 10px;
 }
 
 .stoploss__element-percent {
@@ -164,8 +169,20 @@ input[type=range] {
 .stoploss-input {
     text-align: center;
     border: none;
+    width: 50px;
+    max-width: 100px;
+    appearance: none;
+    overflow: hidden;
+    margin: auto;
+}
+
+.stoploss__percent-input {
+    text-align: center;
+    border: none;
     width: 20px;
     appearance: none;
+    overflow: hidden;
+    margin: left;
 }
 
 .shoulderdiv {

@@ -122,7 +122,7 @@ const TradingBots = () => {
                         placeholder='0' 
                         id='creditshoulderinput' 
                         onChange={(text) => setShoulderCounter(Number(text.target.value))}  
-                        value={shoulderCounter}/>x
+                        value={shoulderCounter != 0 ? shoulderCounter : ''}/>x
                     </div>
                     <button 
                     className='plusminusbtn' 
@@ -139,19 +139,19 @@ const TradingBots = () => {
                         <h4>Simple Sl and TP</h4>
                         <div className="stoploss_simple-stoploss stoploss_simple-element">
                             <div className='stoploss__element-text' >
-                                <span>Stop Loss</span>
+                                <span className='stoploss__element-text_left'>Stop Loss</span>
                                 <span 
                                 style={{backgroundColor: '#eee'}} 
                                 className='stoploss-input'
-                                >{stopLoss}</span>
+                                >{moneyValue - moneyValue/100*stopLoss}</span>
                             </div> 
                             <div className='stoploss__element-percent' >
                                 <input 
                                 style={{backgroundColor: '#eee'}} 
                                 type='number' 
                                 placeholder='0' 
-                                className='stoploss-input'
-                                value={stopLoss}
+                                className='stoploss__percent-input'
+                                value={stopLoss != 0 ? stopLoss : ''}
                                 onChange={(text) => setStopLoss(Number(text.target.value))}  
                                 />
                                 <span style={{color: '#fff'}}>%</span>
@@ -161,19 +161,19 @@ const TradingBots = () => {
                         
                         <div className="stoploss_simple-takeprofit stoploss_simple-element">
                             <div className='stoploss__element-text' >
-                                <span>Take Profit</span>
+                                <span className='stoploss__element-text_left'>Take Profit</span>
                                 <span 
                                 style={{backgroundColor: '#eee'}} 
                                 className='stoploss-input'
-                                >{takeProfit}</span>
+                                >{moneyValue - moneyValue/100*takeProfit}</span>
                             </div>
                             <div className='stoploss__element-percent' >
                                 <input 
                                 style={{backgroundColor: '#eee'}} 
                                 type='number' 
                                 placeholder='0' 
-                                className='stoploss-input'
-                                value={takeProfit}
+                                className='stoploss__percent-input'
+                                value={takeProfit != 0 ? takeProfit : ''}
                                 onChange={(text) => setTakeProfit(Number(text.target.value))}  
                                 />
                                 <span style={{color: '#fff'}}>%</span>
@@ -186,19 +186,19 @@ const TradingBots = () => {
                         <h4>Trailing Sl and TP</h4>
                         <div className="stoploss_simple-windowsize stoploss_simple-element">
                             <div className='stoploss__element-text' >
-                                <span>Window Size</span>
+                                <span className='stoploss__element-text_left'>Window Size</span>
                                 <span 
                                 style={{backgroundColor: '#eee'}} 
                                 className='stoploss-input'
-                                >{windowSize}</span>
+                                >{moneyValue - moneyValue/100*windowSize}</span>
                             </div>
                             <div className='stoploss__element-percent' >
                                 <input 
                                 style={{backgroundColor: '#eee'}} 
                                 type='number' 
                                 placeholder='0' 
-                                className='stoploss-input'
-                                value={windowSize}
+                                className='stoploss__percent-input'
+                                value={windowSize != 0 ? windowSize : ''}
                                 onChange={(text) => setWindowSize(Number(text.target.value))}   
                                 />
                                 <span style={{color: '#fff'}}>%</span>
@@ -208,19 +208,19 @@ const TradingBots = () => {
                         
                         <div className="stoploss_simple-insurancecoefficient stoploss_simple-element">
                             <div className='stoploss__element-text'>
-                                <span style={{fontSize: '0.75rem'}}>Insurance Coefficient</span>
+                                <span className='stoploss__element-text_left' style={{fontSize: '0.75rem', width: '100px'}}>Insurance Coefficient</span>
                                 <span 
                                 style={{backgroundColor: '#eee'}} 
                                 className='stoploss-input'
-                                >{insuranceCoefficient}</span>
+                                >{moneyValue - moneyValue/100*insuranceCoefficient}</span>
                             </div>
                             <div className='stoploss__element-percent'>
                                 <input 
                                 style={{backgroundColor: '#eee'}} 
                                 type='number' 
                                 placeholder='0' 
-                                className='stoploss-input'
-                                value={insuranceCoefficient}
+                                className='stoploss__percent-input'
+                                value={insuranceCoefficient != 0 ? insuranceCoefficient : ''}
                                 onChange={(text) => setInsuranceCoefficient(Number(text.target.value))}  
                                 />
                                 <span style={{color: '#fff'}}>%</span>
@@ -236,7 +236,7 @@ const TradingBots = () => {
                     <select></select>
                 </div>
                 <input type="number" className='stoploss__element-text' placeholder='Investment, USDT' onChange={(text) => setMoneyValue(Number(text.target.value))}  value={moneyValue} style={{border: 'none', padding: '10px', width: '280px'}}/><br/>
-                <input type="range" min="0" max="100" step="1" onChange={(text) => setMoneyRange(Number(text.target.value))}  value={moneyRange}/> <br/>
+                <input type="range" min="0" max="1000" step="1" onChange={(text) => setMoneyValue(Number(text.target.value))}  value={moneyValue}/> <br/>
                 <button className="savebtn" onClick={sendData}>Save bot configuration</button>
             </div>
         </div>

@@ -1,3 +1,4 @@
+
 h1,h2,h3,h4,h5,h6 {
     margin: 0;
     padding: 0;
@@ -19,7 +20,7 @@ h3 {
     width: 100%;
     max-width: 2000px;
     min-height: 100vh;
-    max-height: 200vh;
+    max-height: 1000vh;
     text-align: center;
     padding: 10px;
 }
@@ -81,7 +82,7 @@ h3 {
     justify-content: center;
     margin: auto;
     width: 80%;
-    max-width: 500px;
+    max-width: 600px;
 }
 
 .btn {
@@ -217,25 +218,59 @@ input[type=range] {
 }
 
 .rulemodule__header {
-    width: 20%;
+    width: 100%;
     text-align: left;
     font-size: 2rem;
     margin-bottom: 10px;
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.rulemodule__header-delbtn {
+    border-radius: 50%;
+    background-color: #ffffff00;
+    border: none;
+    width: 25px;
+    height: 25px;
+    text-align: center;
+    font-size: 2rem;
+    transform: rotate(45deg);
 }
 
 .rulemodule__body {
     width: 100%;
     display: flex;
     flex-direction: row;
-    background-color: #eee;
+    background-color: #f2f1f1;
     height: 40px;
     border-radius: 10px;
-    border: 1px solid black;
-    padding: 10px 0 0 10px;
+    border: none;
+    padding: 15px 10px 0 10px;
+    transition: 0.1s linear;
+}
+
+.rulemodule__body-go {
+    display: inline-flex;
+    flex-direction: column;
+    text-align: left;
+    width: 100%;
+}
+
+.rulemodule__body-go_item {
+    margin-bottom: 10px;
+}
+
+.rulemodule__body-go_time {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    width: 80%;
 }
 
 .rulemodule__body-item {
     margin-right: 10px;
+    display: inline;
 }
 
 .rulemodule__body-selectcoin {
@@ -244,15 +279,91 @@ input[type=range] {
 
 .rulemodule__body-selectother {
     height: 25px;
-    width: 75px;
+    width: 95x;
+}
+
+.Ifrulemodule_body-item {
+    display: inline;
+    margin-bottom: 15px;
+}
+
+.IfRule-modeBlock {
+    display: inline;
+}
+
+.ActionRuleModule-item {
+    display: flex;
+    flex-direction: column;
 }
 
 .addmodule-btn {
-    height: 75px;
-    width: 130px;
-    margin-right: 20px;
+    height: 50px;
+    width: 120px;
+    margin-right: 10px;
     border-radius: 30px;
     border: none;
     color: white;
-    font-size: 1.75rem;
+    font-size: 1.5rem;
+    transition: 1s;
+}
+
+.hidden {
+    display: none;
+    transform: translate(-50%,-50%);
+    transition: 1s;
+}
+
+.addmodule-btn_div {
+    display: flex;
+    flex-direction: row-reverse;
+    transition: 1s;
+}
+
+.addmodule-otherbtn_div {
+    overflow: hidden;
+    transition: 2s;
+}
+
+.datepicker-input {
+
+  }
+  .datepicker-input::-webkit-calendar-picker-indicator {
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+  }
+
+#datetimeinput {
+    border-radius: 5px;
+    border: none;
+    box-shadow: -1px 3px 5px 0px rgba(34, 60, 80, 0.2);
+    height: 30px;
+    width: 200px;
+    font-size: 1rem;
+    padding: 0 10px 0 10px;
+}
+
+#rulename {
+    border-radius: 5px;
+    border: none;
+    box-shadow: -1px 3px 5px 0px rgba(34, 60, 80, 0.2);
+    height: 30px;
+    width: 100%;
+    font-size: 1rem;
+    padding-left: 10px;
+    box-sizing: border-box;
+}
+
+.openbtns {
+    background-color: #eee;
+    border-radius: 50%;
+    border: none;
+    height: 50px;
+    width: 50px;
+    transition: 0.5s;
+    font-size: 2rem;
+}
+
+.rotateopenbtns {
+    transform: rotate(-45deg);
 }
