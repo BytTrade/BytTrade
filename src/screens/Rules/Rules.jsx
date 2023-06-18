@@ -9,6 +9,7 @@ import usdt from '../../assets/coins/tether-usdt-logo.svg'
 import btc from '../../assets/coins/bitcoin-sv-1.svg'
 import eth from '../../assets/coins/Ethereum_logo_2014.svg'
 import axios from 'axios'
+
 // import { OperatorRule, ActionRule, IfRule } from './RuleBlocks'
 
 const Rules = () => {
@@ -99,7 +100,7 @@ const Rules = () => {
         && coin2 !== '' && coin2 !== NaN && coin2 !== undefined)
         if (indexOne === indexTwo && indexOne !== NaN && indexTwo !== NaN) {
             const coin = coin1.substring(1,4)+coin2.substring(1,4)
-            console.log(coin)
+            // console.log(coin)
             setValue(`conditions.${Number(indexOne)}.coin.name`, coin)
         } 
         
@@ -152,13 +153,26 @@ const Rules = () => {
                     return 1
                 }
             }
+
+            const blockClear = (type) => {
+                let block = type
+                const newBlock = []
+                for (let i in block) {
+                    if (block[i] === null || block[i] === undefined || block[i] === '') {
+                        
+                    } else {newBlock.push(block[i]) }
+                }
+                return newBlock
+            }
             
             // Take and serialize all Data
             const axiosData ={
                 'rule_name': data.titleChange,
                 'rules': {
-                    "conditions": data.conditions,
-                    "actions": data.actions,
+                    // "conditions": data.conditions,
+                    "conditions": blockClear(data.conditions),
+                    // "actions": data.actions,
+                    "actions": blockClear(data.actions),
                     // "operators": data.operators,
                     "operators": [
                         {
@@ -184,19 +198,40 @@ const Rules = () => {
                 !!data.actions &&
                 btnClick === 1
             ) {
-                axios.post('https://109.106.136.152:443/user/task/create', axiosData)
+                axios.post('https://109.106.136.152:443/user/task/create/', axiosData, {
+                // withCredentials: true,    
+                headers: {
+                        "X-BYT-USER-KEY": "PKMfd213kdfgw23OPMfv2",
+                        // "Content-Type": "application/json",
+                        // "Accept": '*/*',
+
+                    }})
                 .then((data) => {
                     console.log(data)
-                    alert('Your Rule is saved!')
+                    // alert('Your Rule is saved!')
                     setBtnClick(0)
                 })
                 .catch((err) => {
-                    console.log(err)
-                    alert('Something went wrong')
+                    console.log(err.code)
+                    console.log(err.request)
+                    // alert('Something went wrong')
                 })
             }
-            // console.log(axiosData)
+            console.log(axiosData)
+            // alert(JSON.stringify(axiosData))
+            // localStorage.setItem("sendData", JSON.stringify(axiosData));
     };
+
+
+    // axios.get('https://109.106.136.152:443/info/available/indicators/',
+    // {
+    //     headers: {
+    //         "X-BYT-USER-KEY": "PKMfd213kdfgw23OPMfv2",
+    //         "Accept": "*/*"
+    //     }
+    // })
+    // .then((data) => console.log(data))
+    // .catch(err => console.log(err))
     
     
     
@@ -325,7 +360,6 @@ const Rules = () => {
                                                 <option value={coin} key={coin}>{coin}</option>
                                             ))}
                                         </select>
-                                in a 
                                 <Controller
                                     control={control}
                                     name={`conditions.${delKey.delKey}.coin.timeframe`}
@@ -397,6 +431,23 @@ const Rules = () => {
                                         </select>
                                     )}
                                 />
+                                <Controller
+                                    control={control}
+                                    name={`conditions.${delKey.delKey}.compare_timeframe`}
+                                    render={({ field }) => (
+                                        <select 
+                                        {...field}
+                                        // defaultValue={'1m'}
+                                        // onChange={(coin) => {setCoin2(coin2 => coin2.concat(coin.target.value))}} 
+                                        name={delKey.delKey} 
+                                        className='rulemodule__body-selectcoin rulemodule__body-item'>
+                                            <option value=''>timeframe</option>
+                                        {timeframes.map((timeframe) => (
+                                                <option value={timeframe} key={timeframe}>{timeframe}</option>
+                                            ))}
+                                        </select>
+                                    )}
+                                />
                             </div>
                 )
             }
@@ -421,6 +472,7 @@ const Rules = () => {
 
                                         unregister(`conditions.${delKey.delKey}.tracking_type`)
                                         unregister(`conditions.${delKey.delKey}.compare_percent`)
+                                        unregister(`conditions.${delKey.delKey}.compare_timeframe`)
                                         setValue(`conditions.${delKey.delKey}.coin.name`, coin1.substring(1,4)+coin2.substring(1,4))
                                         
                                 }}
@@ -491,11 +543,11 @@ const Rules = () => {
             // setValue(`actions.${delKey.delKey}.${mode}`)
 
             useEffect(() => {
-                setValue(`actions.${delKey.delKey}.coin`, action)
+                setValue(`actions.${delKey.delKey}.action_type`, action)
             }, [action])
 
             useEffect(() => {
-                setValue(`actions.${delKey.delKey}.action_type`, actionCoin)
+                setValue(`actions.${delKey.delKey}.coin`, actionCoin)
             }, [actionCoin])
 
             const SpotMode = () => {
@@ -513,11 +565,11 @@ const Rules = () => {
                     <div className='Ifrulemodule_body-item rulemodule_body-item'>
                             <label>credit shoulder</label>
                             <input {...register(`actions.${delKey.delKey}.${actionmode}.credit_shoulder`, {
-                                valueAsNumber: true,
+                                setValueAs: v => Number.parseFloat(v),
                                 validate: {
-                                    positive: v => parseInt(v) > 0,
+                                    positive: v => Number.parseFloat(v) > 0,
                                     }
-                            })} type='number' style={{width: '50px'}} />
+                            })} type='float' style={{width: '50px'}} />
                     </div>
                 )
             }
@@ -526,14 +578,14 @@ const Rules = () => {
                 return (
                     <div>
                         <label>entry price</label>
-                            <input {...register(`actions.${delKey.delKey}.${actionmode}.risk_management.simple_stoploss.entry_price`, {
+                            <input {...register(`actions.${delKey.delKey}.${actionmode}.risk_management.simple_stoploss.take`, {
                                 valueAsNumber: true,
                                 validate: {
                                     positive: v => parseInt(v) > 0,
                                     }
                             })} type='number' style={{width: '50px'}} />
                         <label>exit price</label>
-                            <input {...register(`actions.${delKey.delKey}.${actionmode}.risk_management.simple_stoploss.exit_price`, {
+                            <input {...register(`actions.${delKey.delKey}.${actionmode}.risk_management.simple_stoploss.loss`, {
                                 valueAsNumber: true,
                                 validate: {
                                     positive: v => parseInt(v) > 0,
@@ -615,8 +667,8 @@ const Rules = () => {
                                         value="spot" 
                                         onClick={(type) => {
                                             unregister(`actions.${delKey.delKey}.futures`)
-                                              setValue(`actions.${delKey.delKey}.coin`, action)
-                                                setValue(`actions.${delKey.delKey}.action_type`, actionCoin)
+                                              setValue(`actions.${delKey.delKey}.action_type`, action)
+                                                setValue(`actions.${delKey.delKey}.coin`, actionCoin)
                                             setActionMode(type.target.value)
                                         
                                     }}
@@ -630,8 +682,8 @@ const Rules = () => {
                                         value="futures" 
                                         onClick={(type) => {
                                             unregister(`actions.${delKey.delKey}.spot`)
-                                              setValue(`actions.${delKey.delKey}.coin`, action)
-                                            setValue(`actions.${delKey.delKey}.action_type`, actionCoin)
+                                              setValue(`actions.${delKey.delKey}.coin`, actionCoin)
+                                            setValue(`actions.${delKey.delKey}.action_type`, action)
                                             setActionMode(type.target.value)
                                             // reset({
                                         //     data: `actions.${delKey.delKey}`
@@ -649,8 +701,8 @@ const Rules = () => {
                                     value="SimpleStopLoss" 
                                     onClick={(type) => {
                                         unregister(`actions.${delKey.delKey}.${actionmode}.risk_management`)
-                                          setValue(`actions.${delKey.delKey}.coin`, action)
-                                            setValue(`actions.${delKey.delKey}.action_type`, actionCoin)
+                                          setValue(`actions.${delKey.delKey}.coin`, actionCoin)
+                                            setValue(`actions.${delKey.delKey}.action_type`, action)
                                         setRisk(type.target.value)
                                         // reset({
                                         //     data: `actions.${delKey.delKey}`
@@ -666,8 +718,8 @@ const Rules = () => {
                                     value="TrailingStopLoss" 
                                     onClick={(type) => {
                                         unregister(`actions.${delKey.delKey}.${actionmode}.risk_management`)
-                                          setValue(`actions.${delKey.delKey}.coin`, action)
-                                            setValue(`actions.${delKey.delKey}.action_type`, actionCoin)
+                                          setValue(`actions.${delKey.delKey}.coin`, actionCoin)
+                                            setValue(`actions.${delKey.delKey}.action_type`, action)
                                         setRisk(type.target.value)
                                         
                                 }}

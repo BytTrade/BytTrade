@@ -1,0 +1,79 @@
+{
+    "rule_name": "aboba company present",
+    "rules": {
+      "conditions": [
+        {
+          "comparison": ">",
+          "coin": {
+            "timeframe": "10m",
+            "name": "ETHUSD"
+          },
+          "condition_type": "comparison",
+          "function": "ma",
+          "params": [
+            "period=9"
+          ],
+          "compare_function": "ma",
+          "compare_params": [
+            "period=9"
+          ]
+        },
+        {
+          "coin": {
+            "timeframe": "5m",
+            "name": "USDBTC"
+          },
+          "condition_type": "tracking",
+          "tracking_type": "increased",
+          "compare_percent": 4
+        }
+      ],
+      "actions": [
+        {
+          "maximal_amount": 1000,
+          "percentage_order": 10,
+          "coin": "BUY",
+          "action_type": "BTC",
+          "futures": {
+            "amount_bet": 100,
+            "credit_shoulder": 10,
+            "risk_management": {
+              "trailing_stoploss": {
+                "ratio": 0.6
+              }
+            }
+          }
+        },
+        {
+          "maximal_amount": 1000,
+          "spot": {
+            "amount_bet": 100,
+            "risk_management": {
+              "simple_stoploss": {
+                "take": 19200,
+                "loss": 20000
+              }
+            }
+          },
+          "percentage_order": 10,
+          "coin": "BUY",
+          "action_type": "BTC"
+        }
+      ],
+      "operators": [
+        {
+          "run_on_success": false,
+          "name": "controlled_launch",
+          "params": "rule_id=c32831196502ab7aceb942cb14bd8b57"
+        }
+      ]
+    },
+    "trade_platform_id": 1234,
+    "planning": {
+      "controlled_launch": false,
+      "scheduled_start_time": 1687114882,
+      "rule_work_timeout": null,
+      "retry_successful_attempts": 1
+    },
+    "active_rule": false
+  }
