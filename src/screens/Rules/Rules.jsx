@@ -219,7 +219,7 @@ const Rules = () => {
             }
             console.log(axiosData)
             // alert(JSON.stringify(axiosData))
-            // localStorage.setItem("sendData", JSON.stringify(axiosData));
+            localStorage.setItem("sendData", JSON.stringify(axiosData));
     };
 
 
